@@ -1,0 +1,4 @@
+lsl-srv.venv/
+dist/
+__pycache__/
+*.py[cod]
