@@ -13,7 +13,7 @@ class LSLRequest(HTTPData):
         if (
             len(args) == 2
             and isinstance(args[0], Request)
-            and isinstance(args[1], BaseModel | list | int | float | str)
+            and isinstance(args[1], BaseModel | list | int | float | str | UUID)
         ):
             headers: dict[str, str] = dict()
             for headName in args[0].headers:
