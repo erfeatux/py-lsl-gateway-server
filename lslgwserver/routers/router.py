@@ -34,7 +34,10 @@ class Router(APIRouter):
             corosResults = await asyncio.gather(*coros)
             # add coroutines results to res list
             for res in corosResults:
-                results.append(res)
+                if isinstance(res, bool):
+                    results.append(res)
+                else:
+                    results.append(False)
 
         # False if any callable returns it
         return all(results)
