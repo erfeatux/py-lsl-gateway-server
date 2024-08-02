@@ -5,7 +5,7 @@ from lslgwserver.routers import onAttachRouter
 from lslgwserver.models import LSLRequest
 
 
-def test_channged(app, data):
+def test_attached(app, data):
     # add <changed> router
     app.include_router(onAttachRouter)
     avatarId = uuid4()
