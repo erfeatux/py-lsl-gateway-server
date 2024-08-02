@@ -16,7 +16,7 @@ router = Router(prefix="/lsl", tags=["lsl"])
 
 
 @router.post("/linksetdata", response_class=PlainTextResponse)
-async def changed(action: LinksetDataAction, req: Request) -> PlainTextResponse:
+async def linksetdata(action: LinksetDataAction, req: Request) -> PlainTextResponse:
     # parse request data
     data: LinksetData
     match action:
