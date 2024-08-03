@@ -1,8 +1,9 @@
-from .changed import router as onChangedRouter
-from .attached import router as onAttachRouter
 from .linksetdata import router as onLinksetDataRouter
 from .linkmessage import router as onLinkMessageRouter
 from .chatmessage import router as onChatMessageRouter
+from .attached import router as onAttachRouter
+from .changed import router as onChangedRouter
+from .money import router as onMoneyRouter
 
 
 __all__ = [
@@ -11,4 +12,5 @@ __all__ = [
     "onLinksetDataRouter",
     "onLinkMessageRouter",
     "onChatMessageRouter",
+    "onMoneyRouter",
 ]
