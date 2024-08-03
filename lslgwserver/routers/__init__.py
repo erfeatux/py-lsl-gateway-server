@@ -4,6 +4,7 @@ from .chatmessage import router as onChatMessageRouter
 from .attached import router as onAttachRouter
 from .changed import router as onChangedRouter
 from .money import router as onMoneyRouter
+from .touch import router as onTouchRouter
 
 
 __all__ = [
@@ -13,4 +14,5 @@ __all__ = [
     "onLinkMessageRouter",
     "onChatMessageRouter",
     "onMoneyRouter",
+    "onTouchRouter",
 ]
