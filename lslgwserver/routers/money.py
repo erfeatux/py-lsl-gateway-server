@@ -1,7 +1,7 @@
 from fastapi.responses import PlainTextResponse
 from fastapi import Request
 from typing_extensions import Annotated
-from pydantic import Field
+from pydantic import Field, ValidationError
 
 from .router import Router
 from lslgwserver.models import LSLRequest
@@ -21,7 +21,15 @@ async def money(
     data: Money
     body = await req.body()
     vals = body.decode("UTF-8").split(sep="¦", maxsplit=1)
-    data = Money(amount=money, avatar=Avatar(vals[0], vals[1]))
+    try:
+        data = Money(amount=money, avatar=Avatar(vals[0], vals[1]))
+    except ValidationError as exception:
+        return PlainTextResponse(f"{exception=}", status_code=422)
+    except IndexError as exception:
+        return PlainTextResponse(
+            f"Request body must contains 12 entries, but has {len(vals)}\n{vals=}\n{exception=}",
+            status_code=422,
+        )
 
     # call all callbacks
     if await router.call(LSLRequest(req, data)):

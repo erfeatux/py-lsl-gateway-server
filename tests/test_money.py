@@ -49,3 +49,6 @@ def test_linkmessage(app, data):
         "/lsl/money?money=-1", headers=data.headers, content=f"{uuid}¦Test Name"
     )
     assert resp.status_code == 422
+
+    resp = client.post("/lsl/money?money=-", headers=data.headers, content=f"{uuid}")
+    assert resp.status_code == 422

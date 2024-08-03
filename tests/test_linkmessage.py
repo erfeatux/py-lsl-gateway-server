@@ -79,3 +79,5 @@ def test_linkmessage(app, data):
         "/lsl/linkmessage?sender=256", headers=data.headers, content="0¦¦"
     )
     assert resp.status_code == 422
+    resp = client.post("/lsl/linkmessage?sender=0", headers=data.headers, content="0¦")
+    assert resp.status_code == 422

@@ -53,3 +53,12 @@ def test_linkmessage(app, data):
         headers=data.headers,
         content=f"Test Name¦{UUID(int=0)}¦testmessage",
     )
+    assert resp.status_code == 200
+
+    # invalid requests
+    resp = client.post(
+        f"/lsl/chatmessage?channel={ChatChannel.DEBUG}",
+        headers=data.headers,
+        content=f"Test Name¦{UUID(int=0)}",
+    )
+    assert resp.status_code == 422

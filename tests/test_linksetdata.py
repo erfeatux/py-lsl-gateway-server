@@ -1,6 +1,4 @@
 from fastapi.testclient import TestClient
-from pydantic import ValidationError
-import pytest
 
 from lslgwserver.routers import onLinksetDataRouter
 from lslgwserver.models import LSLRequest, LinksetData
@@ -79,21 +77,21 @@ def test_linkset(app, data):
     resp = client.post("/lsl/linksetdata?action=9", headers=data.headers)
     assert resp.status_code == 422
 
-    with pytest.raises(IndexError):
-        resp = client.post("/lsl/linksetdata?action=1", headers=data.headers)
+    resp = client.post("/lsl/linksetdata?action=1", headers=data.headers)
+    assert resp.status_code == 422
 
-    with pytest.raises(IndexError):
-        resp = client.post(
-            "/lsl/linksetdata?action=1", headers=data.headers, content="testkey"
-        )
+    resp = client.post(
+        "/lsl/linksetdata?action=1", headers=data.headers, content="testkey"
+    )
+    assert resp.status_code == 422
 
-    with pytest.raises(ValidationError):
-        resp = client.post(
-            "/lsl/linksetdata?action=1", headers=data.headers, content="testkey¦"
-        )
+    resp = client.post(
+        "/lsl/linksetdata?action=1", headers=data.headers, content="testkey¦"
+    )
+    assert resp.status_code == 422
 
-    with pytest.raises(ValueError):
-        resp = client.post("/lsl/linksetdata?action=2", headers=data.headers)
+    resp = client.post("/lsl/linksetdata?action=2", headers=data.headers)
+    assert resp.status_code == 422
 
-    with pytest.raises(ValueError):
-        resp = client.post("/lsl/linksetdata?action=3", headers=data.headers)
+    resp = client.post("/lsl/linksetdata?action=3", headers=data.headers)
+    assert resp.status_code == 422
