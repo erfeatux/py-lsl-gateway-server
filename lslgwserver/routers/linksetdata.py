@@ -18,6 +18,8 @@ router = Router(prefix="/lsl", tags=["lsl"])
 
 @router.post("/linksetdata", response_class=PlainTextResponse)
 async def linksetdata(action: LinksetDataAction, req: Request) -> PlainTextResponse:
+    if not await router.auth(req):
+        return PlainTextResponse(status_code=403)
     # parse request data
     data: LinksetData
     try:

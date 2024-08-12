@@ -12,6 +12,8 @@ router = Router(prefix="/lsl", tags=["lsl"])
 
 @router.post("/chatmessage", response_class=PlainTextResponse)
 async def linkmessage(channel: int, req: Request) -> PlainTextResponse:
+    if not await router.auth(req):
+        return PlainTextResponse(status_code=403)
     # parse request data
     data: ChatMessage
     body = await req.body()

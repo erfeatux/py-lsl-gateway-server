@@ -16,6 +16,8 @@ async def linkmessage(
     sender: Annotated[int, Field(ge=0, le=255)],
     req: Request,
 ) -> PlainTextResponse:
+    if not await router.auth(req):
+        return PlainTextResponse(status_code=403)
     # parse request data
     data: LinkMessage
     body = await req.body()

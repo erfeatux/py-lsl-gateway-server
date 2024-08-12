@@ -5,8 +5,7 @@ from pydantic import Field, ValidationError
 
 from .router import Router
 from lslgwserver.models import LSLRequest
-from lslgwlib.models import Avatar
-from lslgwlib.models import Money
+from lslgwlib.models import Avatar, Money
 
 
 router = Router(prefix="/lsl", tags=["lsl"])
@@ -17,6 +16,8 @@ async def money(
     money: Annotated[int, Field(ge=0, le=0x7FFFFFFF)],
     req: Request,
 ) -> PlainTextResponse:
+    if not await router.auth(req):
+        return PlainTextResponse(status_code=403)
     # parse request data
     data: Money
     body = await req.body()

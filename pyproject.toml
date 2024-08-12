@@ -6,17 +6,19 @@ authors = ["erfea <erfea.tux@gmail.com>"]
 license = "LGPL-3.0-or-later"
 readme = "README.md"
 packages = [
-	{include = "lsl_gw_server"}
+	{include = "lslgwserver"}
 ]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.111.1"
 lsl-gateway-lib = "24.7.0"
+dependency-injector = "^4.41.0"
 
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
+mypy = "^1.11.1"
 
 [build-system]
 requires = ["poetry-core"]
