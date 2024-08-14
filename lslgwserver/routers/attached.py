@@ -9,10 +9,10 @@ from lslgwserver.models import LSLRequest
 router = Router(prefix="/lsl", tags=["lsl"])
 
 
+# https://wiki.secondlife.com/wiki/Attach
 @router.post("/attached", response_class=PlainTextResponse)
+@router.wrap
 async def attached(avatarId: UUID, req: Request) -> PlainTextResponse:
-    if not await router.auth(req):
-        return PlainTextResponse(status_code=403)
     # call all callbacks
     if await router.call(LSLRequest(req, avatarId)):
         return PlainTextResponse("Ok")

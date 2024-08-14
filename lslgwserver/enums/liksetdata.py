@@ -1,6 +1,7 @@
 from enum import IntEnum
 
 
+# https://wiki.secondlife.com/wiki/Linkset_data
 class Action(IntEnum):
     RESET = 0  #       The linkset's datastore has been cleared
     UPDATE = 1  #      A key in the linkset's datastore has been assigned a new value

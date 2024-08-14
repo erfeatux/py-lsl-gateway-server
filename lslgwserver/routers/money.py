@@ -11,13 +11,13 @@ from lslgwlib.models import Avatar, Money
 router = Router(prefix="/lsl", tags=["lsl"])
 
 
+# https://wiki.secondlife.com/wiki/Money
 @router.post("/money", response_class=PlainTextResponse)
+@router.wrap
 async def money(
     money: Annotated[int, Field(ge=0, le=0x7FFFFFFF)],
     req: Request,
 ) -> PlainTextResponse:
-    if not await router.auth(req):
-        return PlainTextResponse(status_code=403)
     # parse request data
     data: Money
     body = await req.body()

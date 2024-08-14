@@ -16,10 +16,10 @@ from lslgwserver.enums import LinksetDataAction
 router = Router(prefix="/lsl", tags=["lsl"])
 
 
+# https://wiki.secondlife.com/wiki/Linkset_data
 @router.post("/linksetdata", response_class=PlainTextResponse)
+@router.wrap
 async def linksetdata(action: LinksetDataAction, req: Request) -> PlainTextResponse:
-    if not await router.auth(req):
-        return PlainTextResponse(status_code=403)
     # parse request data
     data: LinksetData
     try:

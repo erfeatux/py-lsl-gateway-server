@@ -11,13 +11,13 @@ from lslgwlib.models import LinkMessage
 router = Router(prefix="/lsl", tags=["lsl"])
 
 
+# https://wiki.secondlife.com/wiki/Link_message
 @router.post("/linkmessage", response_class=PlainTextResponse)
+@router.wrap
 async def linkmessage(
     sender: Annotated[int, Field(ge=0, le=255)],
     req: Request,
 ) -> PlainTextResponse:
-    if not await router.auth(req):
-        return PlainTextResponse(status_code=403)
     # parse request data
     data: LinkMessage
     body = await req.body()

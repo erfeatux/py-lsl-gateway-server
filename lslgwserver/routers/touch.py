@@ -10,10 +10,11 @@ from lslgwlib.models import Touch, Avatar
 router = Router(prefix="/lsl", tags=["lsl"])
 
 
+# https://wiki.secondlife.com/wiki/Touch_start
+# https://wiki.secondlife.com/wiki/Touch_end
 @router.post("/touch", response_class=PlainTextResponse)
+@router.wrap
 async def touch(req: Request) -> PlainTextResponse:
-    if not await router.auth(req):
-        return PlainTextResponse(status_code=403)
     # parse request data
     data: Touch
     body = await req.body()
